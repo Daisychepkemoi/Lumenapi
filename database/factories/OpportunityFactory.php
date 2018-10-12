@@ -1,5 +1,6 @@
 <?php
 
+
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -11,9 +12,16 @@
 |
 */
 
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+$factory->define(App\Opportunity::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->name,
-        'email' => $faker->email,
+        'contact' => $faker->name,
+        'sales_executive' => $faker->name,
+        'status' => $faker->text,
+        'description' => $faker->paragraph(1,true),
+        'value' => (bool) rand(0,1),
+        'meetings' => $faker->paragraph(1,true),
+
+
+        
     ];
 });
