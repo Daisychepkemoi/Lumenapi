@@ -24,6 +24,7 @@ class CreateContactsTable extends Migration
             $table->text('notes');
             $table->text('meetings');
             $table->text('opportunities');
+            $table->integer('user_id');
             $table->string('prefered_notification_method');
             $table->timestamps();
         });
@@ -36,6 +37,6 @@ class CreateContactsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Contact');
+        Schema::dropIfExists('Contacts');
     }
 }

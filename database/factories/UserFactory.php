@@ -18,7 +18,6 @@ $role=[
  'admin',
  'SE',
  'DE',
- 'user',
 ];
 
     return [

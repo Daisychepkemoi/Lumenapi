@@ -15,8 +15,12 @@
 
 $factory->define(App\Messages::class, function (Faker\Generator $faker) {
 	$name=App\User::pluck('name')->toArray();
+	$type=[
+		'inbox',
+		'sent'
+	];
     return [
-        'type' => $faker->text,
+        'type' => $faker->randomElement($type),
         'subject' => $faker->sentence(10),
         'body' => $faker->sentence(20),
         'recipient' => $faker->randomElement($name),

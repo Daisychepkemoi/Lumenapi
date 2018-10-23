@@ -4,6 +4,11 @@
 
 
 $factory->define(App\Contact::class, function (Faker\Generator $faker) {
+    $notify=[
+        'email',
+        'sms'
+    ];
+    $userid=App\User::pluck('id');
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
@@ -14,7 +19,8 @@ $factory->define(App\Contact::class, function (Faker\Generator $faker) {
         'notes' => $faker->text,
         'meetings' => $faker->paragraph(1,true),
         'opportunities' => $faker->sentence(10),
-        'prefered_notification_method' => $faker->sentence(10),
+        'user_id' => $faker->randomElement($userid),
+        'prefered_notification_method' => $faker->randomElement($notify),
         
     ];
 });

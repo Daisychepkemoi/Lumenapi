@@ -15,6 +15,7 @@ class CreateMeetingsTable extends Migration
     {
         Schema::create('Meetings', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('opportunity_id');
             $table->string('place');
             $table->string('location');
             $table->string('status');
@@ -29,6 +30,6 @@ class CreateMeetingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Meeting');
+        Schema::dropIfExists('Meetings');
     }
 }

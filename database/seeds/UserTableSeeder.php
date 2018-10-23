@@ -2,7 +2,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
+use Illuminate\Support\Facades\Hash;
 class UserTableSeeder extends Seeder
 {
     /**
@@ -12,7 +12,13 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        $admin=factory(App\User::class, 50)->create();
+    	 $admin = factory(\App\User::class)->create([
+            'email' => 'daisy@example.com',
+            'name' => 'daisy',
+            'role' => 'SE',
+            'password' => Hash::make('123456'),
+        ]);
+        // $users=factory(App\User::class, 50)->create();
     
     }
 }
