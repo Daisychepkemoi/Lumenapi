@@ -9,12 +9,17 @@
         "dingo/api": "2.0.0-alpha2",
         "laravel/lumen-framework": "5.7.*",
         "tymon/jwt-auth": "^1.0.0-rc.2",
-        "vlucas/phpdotenv": "~2.2"
+        "vlucas/phpdotenv": "~2.2",
+        "illuminate/notifications": "^5.5",
+        "illuminate/support": "^5.5",
+        "illuminate/mail": "^5.3",
+        "guzzlehttp/guzzle": "^6.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
+        "mockery/mockery": "~1.0",
         "phpunit/phpunit": "~7.0",
-        "mockery/mockery": "~1.0"
+        "ramsey/uuid": "^3.8"
     },
     "autoload": {
         "classmap": [

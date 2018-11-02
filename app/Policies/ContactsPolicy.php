@@ -13,19 +13,23 @@ class ContactsPolicy
 	}
 	public function create(User $user)
 	{
-		return $user->role === 'admin' ;
+		return $user->role == 'SE' ;
 	}
 	public function show(User $user)
 	{
-		return $user->role === 'admin' ;
+		return $user->role == 'SE' ;
 	}
 	public function update(User $user)
 	{
-		return $user->role === 'admin' ;
+		return $user->role === 'SE';
 	}
 	public function destroy(User $user)
 	{
-		return $user->role === 'admin' ;
+		return $user->role === 'SE' ;
+	}
+	public function index(User $user)
+	{
+		return $user->role == 'SE' ;
 	}
 	
 }

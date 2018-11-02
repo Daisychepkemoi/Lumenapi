@@ -17,6 +17,7 @@ class SalesExecutiveOpportunityController extends Controller
      *
      * @return void
      */
+    #working
     use Helpers;
     public function __construct()
     {
@@ -24,7 +25,7 @@ class SalesExecutiveOpportunityController extends Controller
     }
     public function index($id)
     {
-        
+        // $this->authorize('index', Opportunity::class);
         $name = User::where('id',$id)->where('role','SE')->pluck('name');
         $opportunities=Opportunity::where('sales_executive',$name)->get();
         
@@ -32,6 +33,8 @@ class SalesExecutiveOpportunityController extends Controller
     }
      public function show($id,$opportunityid)
     {
+        // $this->authorize('show', Opportunity::class);
+        $this->authorize('index', Opportunity::class);
         
         $name = User::where('id',$id)->where('role','SE')->pluck('name');
         $opportunities=Opportunity::where('sales_executive',$name)->where('id',$opportunityid)->get();
@@ -40,10 +43,11 @@ class SalesExecutiveOpportunityController extends Controller
     }
      public function create(Request $request,$id)
     {
+        // $this->authorize('create', Opportunity::class);
         $name = User::where('id',$id)->where('role','SE')->pluck('name');
          $opportunities = new Opportunity;
         $opportunities->contact = $request->contact;
-        $opportunities->sales_executive = $request->$name;
+        $opportunities->sales_executive = $name;
         $opportunities->status = $request->status;
         $opportunities->description = $request->description;
         $opportunities->value = $request->value;
@@ -51,14 +55,17 @@ class SalesExecutiveOpportunityController extends Controller
         
        
         $opportunities->save();
-        return $this->response->collection(Collection::make($opportunities), new OpportunitysTransformer);
+
+        return response()->json($opportunities);
+        // $this->response->collection(Collection::make($opportunities), new OpportunitysTransformer);
     }
-    public function update(Request $request,$id)
+    public function update(Request $request,$id,$opportunityid)
     {
-        $name = User::where('id',$id)->where('role','SE')->pluck('name');
-         $opportunities = new Opportunity;
+        // $this->authorize('update', Opportunity::class);
+        // $name = User::where('id',$id)->where('role','SE')->pluck('name');
+         $opportunities = Opportunity::find($opportunityid);
         $opportunities->contact= $request->input('contact');
-        $opportunities->sales_executive = $request->$name;
+        // $opportunities->sales_executive = $name;
         $opportunities->status = $request->input('status');
         $opportunities->description = $request->input('description');
         $opportunities->value = $request->input('value');
@@ -66,13 +73,14 @@ class SalesExecutiveOpportunityController extends Controller
         
        
         $opportunities->save();
-        return $this->response->collection(Collection::make($opportunities), new OpportunitysTransformer);
+        $opportunity = Opportunity::where('id',$opportunityid)->get();
+        return $this->response->collection(Collection::make($opportunity), new OpportunitysTransformer);
         
         
     }
     public function destroy($id,$opportunityid)
     {
-         
+         // $this->authorize('destroy', Opportunity::class);
          $name = User::where('id',$id)->where('role','SE')->pluck('name');
          $opportunity = Opportunity::where('sales_executive',$name)->find($opportunityid);
         $opportunity->delete();

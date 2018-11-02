@@ -6,8 +6,9 @@ use App\User;
 use App\Opportunity;
 use Dingo\Api\Routing\Helpers;
 use Response;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-use App\Transformers\UsersTransformer;
+// use App\Transformers\UsersTransformer;
 use App\Transformers\MeetingsTransformer;
 class SalesExecutiveMeetingController extends Controller
 {
@@ -24,7 +25,8 @@ class SalesExecutiveMeetingController extends Controller
     }
     public function index($id)
     {
-             //confirm this
+            
+        // $this->authorize('index', Opportunity::class);
        $name=User::where('id',$id)->where('role','SE')->pluck('name');
         $opportunityid=Opportunity::where('sales_executive',$name)->pluck('id');
         $meetings = Meeting::whereIn('opportunity_id',$opportunityid)->get();
@@ -32,37 +34,36 @@ class SalesExecutiveMeetingController extends Controller
     }
      public function show($id,$idmeeting)
     {
-             //confirm this
+       // $this->authorize('show', Opportunity::class);
        $name=User::where('id',$id)->where('role','SE')->pluck('name');
         $opportunityid=Opportunity::where('sales_executive',$name)->pluck('id');
-        $meetings = Meeting::where('opportunity_id',$opportunityid)->where('id',$idmeeting)->get();
+        $meetings = Meeting::whereIn('opportunity_id',$opportunityid)->where('id',$idmeeting)->get();
         return $this->response->collection(Collection::make($meetings), new MeetingsTransformer);
     }
      public function create(Request $request,$id)
     {
+        //parameter error.
+        // $this->authorize('create', Opportunity::class)
         $meeting = new Meeting;
         $meeting->opportunity_id= $request->opportunity_id;
         $meeting->place = $request->place;
         $meeting->status = $request->status;
         $meeting->location = $request->location;
-       
-       
         $meeting->save();
-        return $this->response->collection(Collection::make($meetings), new MeetingsTransformer);
+        return response()->json('saves');
+        // return $this->response->collection(Collection::make($meetings), new MeetingsTransformer);
     }
     public function update(Request $request,$id,$idmeeting)
     {
 
-         $meeting = new meeting;
-        $meeting->opportunity_id= $request->input('opportunity_id');
+       
+        $meeting= Meeting::find($idmeeting);
         $meeting->place = $request->input('place');
         $meeting->status = $request->input('status');
         $meeting->location = $request->input('location');
-       
-        
-       
         $meeting->save();
-       return $this->response->collection(Collection::make($meetings), new MeetingsTransformer);
+       return response()->json($meeting);
+       // $this->response->collection(Collection::make($meetings), new MeetingsTransformer);
         
         
     }

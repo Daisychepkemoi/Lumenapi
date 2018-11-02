@@ -7,17 +7,24 @@ $api->version('v1', function ($api) {
     }); 
 // $api->group(['middleware' => 'auth:api'], function($api)
 // {
-    $api->get('/test', function() {
-        return response()->json([
-            'message' => 'Hello World!',
-        ]);
-    });
+    // $api->get('/test', function() {
+    //     return response()->json([
+    //         'message' => 'Hello World!',
+    //     ]);
+    // });
+    	//admincontroller
+	$api->get('/users/admin/age/2', 'App\Http\Controllers\AdminController@index');
+	$api->post('/users/admin', 'App\Http\Controllers\AdminController@create');
+	$api->get('/users/admin/{id}', 'App\Http\Controllers\AdminController@show');
+	$api->put('/users/admin/{id}', 'App\Http\Controllers\AdminController@update');
+	$api->delete('/users/admin/{id}', 'App\Http\Controllers\AdminController@destroy');
+	//contacts creation
 	$api->post('/users/{id}/contacts', 'App\Http\Controllers\UserController@create');
-	$api->get('/users/{id}/contacts/{contactid}', 'App\Http\Controllers\UserController@showSpecificContact');
+	$api->get('/users/{id}/contacts/{contactid}', 'App\Http\Controllers\UserController@show');
 	$api->put('/users/{id}/contacts/{contactid}', 'App\Http\Controllers\UserController@update');
 	$api->delete('/users/{id}/contacts/{contactid}', 'App\Http\Controllers\UserController@destroy');
-	$api->get('/users/{id}', 'App\Http\Controllers\UserController@show');
-	$api->get('/users/{id}/contacts', 'App\Http\Controllers\UserController@showcontacts');
+	// $api->get('/users/{id}', 'App\Http\Controllers\UserController@show');
+	$api->get('/users/{id}/contacts', 'App\Http\Controllers\UserController@index');
 	
 	// // //opportunities dsales executive
 	$api->post('users/{id}/opportunities', 'App\Http\Controllers\SalesExecutiveOpportunityController@create');
@@ -25,19 +32,14 @@ $api->version('v1', function ($api) {
 	$api->get('users/{id}/opportunities/{opportunityid}', 'App\Http\Controllers\SalesExecutiveOpportunityController@show');
 	$api->put('users/{id}/opportunities/{opportunityid}', 'App\Http\Controllers\SalesExecutiveOpportunityController@update');
 	$api->delete('users/{id}/opportunities/{opportunityid}', 'App\Http\Controllers\SalesExecutiveOpportunityController@destroy');
-	//admincontroller
-	$api->get('/users/admin/all', 'App\Http\Controllers\AdminController@index');
-	$api->post('/users/admin', 'App\Http\Controllers\AdminController@create');
-	$api->get('/users/admin/{id}', 'App\Http\Controllers\AdminController@show');
-	$api->put('/users/admin/{id}', 'App\Http\Controllers\AdminController@update');
-	$api->delete('/users/admin/{id}', 'App\Http\Controllers\AdminController@destroy');
+
 	//salesexecutivemeetingsoppo
-	///
-	//
-	$api->post('user/{id}/opportunities/{opportunityid}/meeting', 'SalesExecutiveMeetingsOppoController@create');
-	$api->get('user/{id}/opportunities/{opportunityid}/meetings', 'App\Http\Controllers\SalesExecutiveMeetingsOppoController@index');
-	$api->get('user/{id}/opportunities/{opportunityid}/meetings/{idmeeting}', 'App\Http\Controllers\SalesExecutiveMeetingsOppoController@show');
-	$api->put('user/{id}/opportunities/{opportunityid}/meetings/{idmeeting}', 'App\Http\Controllers\SalesExecutiveMeetingsOppoController@update');
+	
+
+		$api->post('users/{id}/opportunities/{opportunityid}/meetings', 'App\Http\Controllers\SalesExecutiveMeetingsOppoController@create');
+	$api->get('users/{id}/opportunities/{opportunityid}/meetings', 'App\Http\Controllers\SalesExecutiveMeetingsOppoController@index');
+	$api->get('users/{id}/opportunities/{opportunityid}/meetings/{idmeeting}', 'App\Http\Controllers\SalesExecutiveMeetingsOppoController@show');
+	$api->put('users/{id}/opportunities/{opportunityid}/meetings/{idmeeting}', 'App\Http\Controllers\SalesExecutiveMeetingsOppoController@update');
 	$api->delete('user/{id}/opportunities/{opportunityid}/meetings/{idmeeting}', 'App\Http\Controllers\SalesExecutiveMeetingsOppoController@destroy');
 
 	//salesexecutivemeeting with a contact
@@ -47,6 +49,8 @@ $api->version('v1', function ($api) {
 	$api->get('users/{id}/meetings/{idmeeting}', 'App\Http\Controllers\SalesExecutiveMeetingController@show');
 	$api->put('users/{id}/meetings/{idmeeting}', 'App\Http\Controllers\SalesExecutiveMeetingController@update');
 	$api->delete('users/{id}/meetings/{idmeeting}', 'App\Http\Controllers\SalesExecutiveMeetingController@destroy');
+	// message
+	$api->post('users/{id}/messages', 'App\Http\Controllers\MessagesController@destroy');
 
 
 // });

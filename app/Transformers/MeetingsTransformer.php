@@ -10,7 +10,8 @@ class MeetingsTransformer extends TransformerAbstract
     {
         return [
             'id'        => (int) $meeting->id,
-            'Location'     => $meeting->place,
+            'opportunity_id' => (int)$meeting->opportunity_id,
+            'Location'     => $meeting->Location,
             'Place'    => $meeting->Place,
             'Status'    => $meeting->status,
             'Set_On' => date('Y-m-d',strtotime($meeting->updated_at))
