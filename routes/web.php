@@ -5,15 +5,15 @@ $api->version('v1', function ($api) {
     $api->get('/', function() {
         return ['Fruits' => 'Delicious and healthy!'];
     }); 
-// $api->group(['middleware' => 'auth:api'], function($api)
-// {
+$api->group(['middleware' => 'auth:api'], function($api)
+{
     // $api->get('/test', function() {
     //     return response()->json([
     //         'message' => 'Hello World!',
     //     ]);
     // });
     	//admincontroller
-	$api->get('/users/admin/age/2', 'App\Http\Controllers\AdminController@index');
+	$api->get('/users/admin/age/{id}', 'App\Http\Controllers\AdminController@index');
 	$api->post('/users/admin', 'App\Http\Controllers\AdminController@create');
 	$api->get('/users/admin/{id}', 'App\Http\Controllers\AdminController@show');
 	$api->put('/users/admin/{id}', 'App\Http\Controllers\AdminController@update');
@@ -23,7 +23,6 @@ $api->version('v1', function ($api) {
 	$api->get('/users/{id}/contacts/{contactid}', 'App\Http\Controllers\UserController@show');
 	$api->put('/users/{id}/contacts/{contactid}', 'App\Http\Controllers\UserController@update');
 	$api->delete('/users/{id}/contacts/{contactid}', 'App\Http\Controllers\UserController@destroy');
-	// $api->get('/users/{id}', 'App\Http\Controllers\UserController@show');
 	$api->get('/users/{id}/contacts', 'App\Http\Controllers\UserController@index');
 	
 	// // //opportunities dsales executive
@@ -50,10 +49,10 @@ $api->version('v1', function ($api) {
 	$api->put('users/{id}/meetings/{idmeeting}', 'App\Http\Controllers\SalesExecutiveMeetingController@update');
 	$api->delete('users/{id}/meetings/{idmeeting}', 'App\Http\Controllers\SalesExecutiveMeetingController@destroy');
 	// message
-	$api->post('users/{id}/messages', 'App\Http\Controllers\MessagesController@destroy');
+	$api->post('users/{id}/messages', 'App\Http\Controllers\MessagesController@create');
 
 
-// });
+});
 $api->post('/auth/login', 'App\Http\Controllers\AuthController@postLogin');
 
 });

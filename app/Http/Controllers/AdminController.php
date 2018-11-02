@@ -17,23 +17,22 @@ class AdminController extends Controller
      * @return void
      */
     use Helpers;
-    public function index()
+    public function index($id)
     {
-        // $this->authorize('index', User::class);
-
+        $this->authorize('index', User::class);
+      
         return $this->response->collection(Collection::make(User::all()), new UsersTransformer);
     }
     
     public function show($id)
     {
-     // $this->authorize('show', User::class);
-         $email = User::where('id',$id)->first();
-         $email->notify(new UserNotification($email));
+     $this->authorize('show', User::class);
+        
      return $this->response->collection(Collection::make(User::where('id',$id)->get()), new UsersTransformer);
     }
     public function create(Request $request)
     {
-        // $this->authorize('create', User::class);
+        $this->authorize('create', User::class);
         $user = new User;
         $user->name= $request->name;
         $user->email = $request->email;
@@ -43,11 +42,13 @@ class AdminController extends Controller
         $user->save();
         $email = User::where('email',$user->email)->first();
          $email->notify(new UserNotification($email));
+           
+         // $email->notify(new UserNotification($user));
         return response()->json($user);
     }
     public function update(Request $request, $id)
     {
-        // $this->authorize('update', User::class);
+        $this->authorize('update', User::class);
         $user= user::find($id);
         $user->name= $request->input('name');
         $user->email = $request->input('email');
